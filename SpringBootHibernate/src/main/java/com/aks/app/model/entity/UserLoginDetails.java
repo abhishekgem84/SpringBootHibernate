@@ -23,8 +23,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 public class UserLoginDetails {
 	@Id
 	@Column(name = "user_id", precision = 10, unique = true, nullable = false)
-	@GeneratedValue(generator = "gen")
-	@GenericGenerator(name = "gen", strategy = "foreign", parameters = @Parameter(name = "property", value = "registeredUser"))
+	@GeneratedValue(generator = "genUserLoginDetails")
+	@GenericGenerator(name = "genUserLoginDetails", strategy = "foreign", parameters = @Parameter(name = "property", value = "registeredUser"))
 	private int user_id;
 	
 	@Column(name="password", precision=254,nullable=false)

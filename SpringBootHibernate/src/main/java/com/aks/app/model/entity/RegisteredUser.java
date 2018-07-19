@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.JoinColumn;
@@ -36,7 +37,7 @@ public class RegisteredUser implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", precision = 10)
+	@Column(name = "id", columnDefinition="bpchar(3)", precision = 10)
 	@NotNull
 	private int id;
 
@@ -58,10 +59,11 @@ public class RegisteredUser implements Serializable {
 	@Size(max = 255)
 	@Column(name = "address", precision = 255)
 	private String address;
-	@Column(name = "district_id", precision = 3, columnDefinition = "bpchar(3)")
-	private String districtId;
-	@Column(name = "state_id", precision = 2, columnDefinition = "bpchar(2)")
-	private String stateId;
+	//@Column(name = "district_id", columnDefinition="bpchar(3)", precision = 3)
+	//private String districtId;
+//	@Column(name = "state_id", columnDefinition="bpchar(2)", precision = 2)
+//	private String stateId;
+	
 	// @Size(min = 6, max = 6, message = "Please enter valide pin code")
 	@Column(name = "pin_code", precision = 6)
 	private String pinCode;
@@ -75,6 +77,18 @@ public class RegisteredUser implements Serializable {
 	private LocalDateTime entryDate = LocalDateTime.now();
 	@Column(name = "photo_id_card", precision = 10)
 	private int photoIdCard;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "state_id", columnDefinition="bpchar(2)")
+	private RefState refState;
+	
+	public RefState getRefState() {
+		return this.refState;
+	}
+
+	public void setRefState(RefState refState) {
+		this.refState = refState;
+	}
 	
 	//@OneToOne(cascade = CascadeType.ALL)
 	@OneToOne(/*mappedBy="registeredUser",*/cascade=CascadeType.ALL)
@@ -156,21 +170,21 @@ public class RegisteredUser implements Serializable {
 		this.address = address;
 	}
 
-	public String getDistrictId() {
-		return districtId;
-	}
+//	public String getDistrictId() {
+//		return districtId;
+//	}
+//
+//	public void setDistrictId(String districtId) {
+//		this.districtId = districtId;
+//	}
 
-	public void setDistrictId(String districtId) {
-		this.districtId = districtId;
-	}
-
-	public String getStateId() {
-		return stateId;
-	}
-
-	public void setStateId(String stateId) {
-		this.stateId = stateId;
-	}
+//	public String getStateId() {
+//		return stateId;
+//	}
+//
+//	public void setStateId(String stateId) {
+//		this.stateId = stateId;
+//	}
 
 	public String getPinCode() {
 		return pinCode;
