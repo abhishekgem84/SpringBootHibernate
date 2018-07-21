@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.remoting.jaxws.SimpleJaxWsServiceExporter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -15,6 +16,10 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 @PropertySource(value = "classpath:application.properties")
 @Import({ DBConfig.class, SpringFoxConfig.class })
 public class SpringBootHibernateApplication {
+	@Bean
+	public SimpleJaxWsServiceExporter jaxWsExporter() {
+		return new SimpleJaxWsServiceExporter();
+	}
 
 	@Bean
 	public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
